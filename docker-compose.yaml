@@ -1,6 +1,9 @@
 services:
   nginx:
-    image: nginx:latest #image Docker à utiliser
+    #image: nginx:latest #image Docker à utiliser
+    build: 
+      dockerfile: Dockerfile # fichier dockerfile dasns lequel est crée l'image
+      context: ./nginx  # le chemin du dockerfile
     container_name: server-web #nom du conteneur qui va apparaître dans la liste (plutôt que de générer un nom au hasard)
     ports:
       - "8000:80"
@@ -20,6 +23,9 @@ services:
 
 
   php-fpm:
-    image: php:8-fpm
+    build: 
+      dockerfile: Dockerfile 
+      context: ./php  
+    #image: php:8-fpm
     volumes: #volumes à créer entre la machine hôte et le conteneur c'est à dire on aura le meme contenu sur app et sur blognote
       - ./app:/var/www/blognote  
