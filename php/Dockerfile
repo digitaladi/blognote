@@ -7,12 +7,16 @@ RUN apt update \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
-    
+
 WORKDIR /var/www/symfony_docker
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+#le binaire de symfony
 RUN curl -sS https://get.symfony.com/cli/installer | bash
+#éxécutable de symfony
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+#configuration de git
 RUN git config --global user.email "aladi.timera1605@gmail.com" \ 
     && git config --global user.name "digitaladi"
 

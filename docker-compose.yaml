@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile # fichier dockerfile dasns lequel est crée l'image
       context: ./nginx  # le chemin du dockerfile
     container_name: server-web #nom du conteneur qui va apparaître dans la liste (plutôt que de générer un nom au hasard)
+    restart: unless-stopped
+    tty: true
     ports:
       - "8000:80"
     volumes:
