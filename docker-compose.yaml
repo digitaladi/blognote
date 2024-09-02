@@ -18,7 +18,9 @@ services:
     #depends_on : si le conteneur dépend d'un autre pour son exécution (ex : une base de données)
     #build : si l'image doit être construite à partir d'un fichier Dockerfile
 
-
+    depends_on:
+      - php-fpm
+      - db
 
 
 
@@ -51,7 +53,6 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
 
-    depends_on:
-      - php-fpm
+
 
 
