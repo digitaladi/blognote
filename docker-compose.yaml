@@ -32,7 +32,11 @@ services:
       context: ./php  
     #image: php:8-fpm
     volumes: #volumes à créer entre la machine hôte et le conteneur c'est à dire on aura le meme contenu sur app et sur blognote
-      - ./app:/var/www/blognote  
+      - ./app:/var/www/blognote
+
+    depends_on:
+      - db
+  
 
 
 
