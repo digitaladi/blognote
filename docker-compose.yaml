@@ -21,8 +21,8 @@ services:
     #build : si l'image doit être construite à partir d'un fichier Dockerfile
 
     depends_on:
-      - php-fpm
-      - db
+    
+      - databasse_blognote
 
 
 
@@ -35,13 +35,13 @@ services:
       - ./app:/var/www/blognote
 
     depends_on:
-      - db
+      - databasse_blognote
   
 
 
 
 
-  db:
+  databasse_blognote:
     image: mysql:8.0
     container_name: mysql8
     command: --default-authentication-plugin=mysql_native_password #la connexion par default
