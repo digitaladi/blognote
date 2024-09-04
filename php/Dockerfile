@@ -8,7 +8,13 @@ RUN apt update \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
-WORKDIR /var/www/blognote
+    #RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
+    #&& docker-php-ext-install  gd \
+    #&& docker-php-ext-install exif
+
+
+
+WORKDIR /var/www/html/blognote
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

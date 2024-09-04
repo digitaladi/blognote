@@ -1,5 +1,5 @@
 
-FROM nginx:latest 
+FROM nginx:latest
 
 RUN apt-get update && apt-get upgrade -y
 
