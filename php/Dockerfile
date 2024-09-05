@@ -6,7 +6,9 @@ RUN apt update \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip 
+
+    
 
     #RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
     #&& docker-php-ext-install  gd \
