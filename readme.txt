@@ -92,3 +92,51 @@ c'est le point d'entrée de nos fichiers css et js
 
 
 
+
+
+_________________ CREATION DE LA BASE DE DONNEES   _________________
+  
+création de l'entité user pour authentification
+
+         symfony console make:user
+resultat : 
+ created: src/Entity/User.php
+ created: src/Repository/UserRepository.php
+ updated: src/Entity/User.php
+ updated: config/packages/security.yaml
+
+
+ on va ajouter des attributs à notre entité user
+        symfony console make:entity
+
+
+
+
+on fait la meme chose avec l'entity  : 
+        Keyword
+        Category
+        Trick
+        Comment
+        rating
+
+les relations :
+
+        - les asctuces (tricks) ne peuvent pas avoir q'un seul user
+        - peuvent avoir plusieurs mots-clés (Keyword) et les Keyword peuvent avoir plusierus asctuces
+        - un Trick peut avoir plusieurs comments et un comment ne peut aprtenir qu'un seul post et seul user
+        - un trick peut avoir plusieurs rating mais un rating ne peu appartenir  qu'un seul trick
+
+une fois les entités finis : 
+
+on crée les requetes : 
+        symfony console make:migration
+
+si touche se passe bien un fichier de migration sera crée dans le dossier migrations qui contient toutes les requetes liées aux entités
+
+pour le faire correspondre à notre base de données on fait : 
+
+
+symfony console doctrine:migrations:migrate
+
+
+et la tous nos tables et leurs colonnes sont crées
