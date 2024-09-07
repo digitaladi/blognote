@@ -184,6 +184,59 @@ voila le résultat :
 
 
 
+_________________   ENVOIE DE MAIL  _________________
+
+on va simuler un envoie de mail avec mailhog avec docker
+
+on éxcécute docker compose pour créer un nouveau container enfin que l'image soit pris en compte
+
+aller dans .env.local decommenter cette ligne et configurer comme ceci : 
+        MAILER_DSN=smpt://mailhog:1025
+
+
+puis aller dans configs/packages/messenger.yaml et decommenter cette ligne : 
+        #Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+
+cela permet d'ignorer le systeme par defaults de symfony qui permet d'envoyer des mails
+
+
+et si vous voulez mettre un systéme fil d'attente il faut décommenter cette ligne
+
+
+Je vais dans env.local pour créer un clé token qui me permet d'activer mon compte si j'envoie le mail
+JWT_SECRET = 'messiTheGreatest'
+
+
+pour acceder à JWT_SECRET dans notre controller ex il faut aller le déclarer dans config/services.yaml dans les parameters : 
+          app.jwtsecret: '%env(JWT_SECRET)'
+
+
+donc pour envoyer l'email il faut aller dans la fonction register (fonction pour s'enregistrer) dans le controller RegistrationController
+        - generer le tocken
+        - envoyer le mail 
+
+
+
+
+
+
+
+
+aller dans src créer un dossier services pour y mettre mes services 
+après s'y met s'y crée le service SendEmailService.php
+
+pour le template de l'email d' inscription on crée un dossier emails dans templates et on y crée le fichier register.html.twig
+
+
+
+on va créer un service JWTService.php
+
+
+
+
+
+
+
 
 
 

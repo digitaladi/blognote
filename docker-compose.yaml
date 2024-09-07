@@ -60,6 +60,13 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
 
-
+#Permet de simuler un boite mail mailhog . pour le rendu aller sur : http://localhost:8025/ 
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - 1025:1025  #c'est le port SMPT
+      - 8025:8025 #PORT BOITE MAIL
 
 
