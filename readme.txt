@@ -140,3 +140,68 @@ symfony console doctrine:migrations:migrate
 
 
 et la tous nos tables et leurs colonnes sont crées
+
+
+
+
+
+_________________   AUTHENTIFICATION   _________________
+faire L'authentification
+
+        symfony console make:auth  
+
+...suivre les instructions
+
+voila ce qui a été crée : 
+
+        created: src/Security/UserAuthentificatorAuthenticator.php
+        updated: config/packages/security.yaml
+        created: src/Controller/SecurityController.php
+        created: templates/security/login.html.twig
+
+...lire les instructions qui suivent
+
+
+
+
+
+faire l'inscription : 
+        symfony console make:registration
+
+voila le résultat : 
+
+ updated: src/Entity/User.php
+ created: src/Form/RegistrationFormType.php
+ created: src/Controller/RegistrationController.php
+ created: templates/registration/register.html.twig
+
+
+...lire les instructions qui suivent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="checkbox mb-3"><label><input type="checkbox" name="_remember_me">Se souvenir de moi</label></div>-- >
