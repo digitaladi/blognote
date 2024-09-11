@@ -4,7 +4,7 @@ services:
     build: 
       dockerfile: Dockerfile # fichier dockerfile dasns lequel est crée l'image
       context: ./nginx  # le chemin du dockerfile
-    container_name: server-web #nom du conteneur qui va apparaître dans la liste (plutôt que de générer un nom au hasard)
+    container_name: web-server #nom du conteneur qui va apparaître dans la liste (plutôt que de générer un nom au hasard)
     restart: unless-stopped
     tty: true
     ports:
@@ -68,5 +68,8 @@ services:
     ports:
       - 1025:1025  #c'est le port SMPT
       - 8025:8025 #PORT BOITE MAIL
+
+    volumes:
+      - ./mailhog-maildir:/home/mailhog/maildir
 
 

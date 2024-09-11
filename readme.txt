@@ -4,12 +4,22 @@
 symfony new my_project_directory --version="7.1.*" --webapp
 
 
-pour stopper le container :
-        docker system prune -a
+en cas de problémes de, de conflits de ports dans le container on relance le moteur docker
+        service docker restart
+ 
+
+pour stopper et supprimer tous les containers :
+      docker rm -f $(docker ps -aq)
+
+
+supprimer tous images en meme temp
+        docker rmi $(docker images -q)
 
 Commande pour accéder au shell du container php-fpm
 docker compose exec php-fpm  /bin/bash
 
+
+lien pour la gestion les images et containers: https://www.hostinger.fr/tutoriels/supprimer-toutes-les-images-docker#:~:text=Pour%20supprimer%20plusieurs%20images%20Docker,images%20que%20vous%20souhaitez%20supprimer.&text=La%20commande%20docker%20images%20%2Dq,supprime%20toutes%20vos%20images%20Docker.
 
 
 
@@ -231,6 +241,23 @@ pour le template de l'email d' inscription on crée un dossier emails dans templ
 
 on va créer un service JWTService.php
 
+on va créer 
+        - la fonction qui génére le token
+        - fonction qui vérifie si le token est valide
+        - fonction qui récupére le Payload
+        - fonction qui récupére le header
+        - fonction qui vérifie si le token a expiré
+        - fonction qui vérifie la signature du Token
+
+après inscription :
+        - on génére le token
+        - et envoie le mail
+
+
+
+
+
+activer le compte si on on clique sur un lien dans le mail d'inscription
 
 
 
@@ -238,14 +265,15 @@ on va créer un service JWTService.php
 
 
 
+_________________   MOT DE PASSE OUBLIE  _________________
 
+créer une fonction forgottenPassword dans le controller SecurityController
 
+Créer un formulaire lié au mot de passe oublié
 
+        symfony console make:form 
 
-
-
-
-
+il n 'est pas relié à un entité
 
 
 
