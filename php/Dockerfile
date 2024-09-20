@@ -1,7 +1,7 @@
 FROM php:8-fpm
 
 RUN apt update \
-    && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
+    && apt-get install -y build-essential curl zlib1g-dev g++ git libicu-dev zip libzip-dev libpng-dev libjpeg-dev libwebp-dev libfreetype6-dev \
     && docker-php-ext-install intl opcache pdo_mysql \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
@@ -9,7 +9,9 @@ RUN apt update \
     && docker-php-ext-install zip 
 
     
-
+RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
+    && docker-php-ext-install  gd \
+    && docker-php-ext-install exif
     #RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
     #&& docker-php-ext-install  gd \
     #&& docker-php-ext-install exif
