@@ -436,15 +436,55 @@ PictureService.php
 
 
 
+//installer les icones symfony ux
+composer require symfony/ux-icons
+
+//pour voir  les informations sur les icones existants : symfony console ux:icons:search
+
+on préfixe par  ex  "fa"
+il t'affiche tous les set icon: 
+
+//on préfixe par  ex  "tabler"
+il affiche le nombre de icons
+
+
+
+
+//si on veut trouver des icones sur un theme user exemple : 
+symfony console ux:icons:search tabler user : 
+
+
+ tabler:user                                tabler:user-bitcoin                       
+  tabler:user-bolt                           tabler:user-cancel                        
+  tabler:user-check                          tabler:user-circle                        
+  tabler:user-code                           tabler:user-cog                           
+  tabler:user-dollar                         tabler:user-down                          
+  tabler:user-edit                           tabler:user-exclamation                   
+  tabler:user-filled                         tabler:user-heart                         
+  tabler:user-hexagon                        tabler:user-minus                         
+  tabler:user-off                            tabler:user-pause                         
+  tabler:user-pentagon                       tabler:user-pin  
 
 
 
 
 
 
+et vous ajouter comme par magie ce code dans votre twig et ça marche: 
+	{{ ux_icon('tabler:user-circle') }}
+
+
+aller sur le site :  https://ux.symfony.com/icons
+
+
+lien pour tuto : https://www.youtube.com/watch?v=VkNNhap-CBc
 
 
 
+
+
+
+                                                
 
 
 <!-- <div class="checkbox mb-3"><label><input type="checkbox" name="_remember_me">Se souvenir de moi</label></div>-- >
