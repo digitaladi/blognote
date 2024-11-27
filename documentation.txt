@@ -122,7 +122,7 @@ resultat :
 
 
 
-on fait la meme chose avec l'entity  : 
+on fait la meme chose avec l'entity  :  
         Keyword
         Category
         Trick
@@ -151,7 +151,11 @@ symfony console doctrine:migrations:migrate
 
 et la tous nos tables et leurs colonnes sont crées
 
+Pour supprimer touta la base de données et refaire la migration
+        symfony console d:d:d --force 
 
+pour réecrer la base de données
+        symfony console d:d:c 
 
 
 
@@ -273,8 +277,8 @@ créer une  :
 - une template email password_reset.html.twig : qui va recevoir le lien pour réinitialiser le mdp
 - Créer un formulaire avec comme champ l'email : ResetPasswordRequestFormType.php
 
-- la fonction resetPassword dans le controller SecurityController permet de réinitialiser le mdp
-- créer un formulaire avec un champ pssaword pour 
+- Créer la fonction resetPassword dans le controller SecurityController permet de réinitialiser le mdp
+- créer un formulaire avec un champ password pour 
 
 
 
@@ -282,7 +286,7 @@ créer une  :
 
 
 
-_________________   CREATION  CONTROLLER ET FOROMULAIRE POUR D AUTRES ENTITES  _________________
+_________________   CREATION  CONTROLLER ET FORMULAIRE POUR D AUTRES ENTITES  _________________
 
 
 pour créer un formulaire
@@ -488,3 +492,282 @@ lien pour tuto : https://www.youtube.com/watch?v=VkNNhap-CBc
 
 
 <!-- <div class="checkbox mb-3"><label><input type="checkbox" name="_remember_me">Se souvenir de moi</label></div>-- >
+
+
+
+
+Créer une function twig 
+
+
+
+
+____________________________________
+
+installation de composer require vich/uploader-bundle
+
+
+
+
+
+serialiser les colonnes id, username et password
+
+
+
+
+pour le recaptcha
+le lien pour des recaptcha : https://www.youtube.com/watch?v=Y_X1_hXZGEs&list=PLUiuGjup8Vg5t20nu7aaJDnbHlhzXbbuN&index=23
+composer require karser/karser-recaptcha3-bundle
+
+un fichier  karser_recaptcha3 qui contient le config
+
+
+
+_______________________________________________________
+
+Une commande pour créer un administrateur
+Le but de cette fonctionnalité est de pouvoir créer en ligen de commande.
+Cela permettra d'ajouter des administrateurs
+
+Une commande permet d'exécuter un code en ligne de commande avec une instruction
+
+
+pour créer la commdande : symfony console make:command
+
+puis vous mettez : app:nom_de_commande
+
+Une fois fais il crée un dossier Command dans lequel se trouve un fichier CreateAdministratorCommand.php
+
+CreateAdministratorCommand.php qui sera éxécuté une fois la commande app:nom_de_commande excuté
+
+
+si vous taper la commande symfony console vous allez le voir dans la liste des commandes , ce qui prouve votre commande a été enregistré
+
+et pour taper la commande on fait : symfony console app:create-administrator
+
+lien pour créer une commande symfony :  https://www.youtube.com/watch?v=IjJoA9IRzCE&list=PLUiuGjup8Vg5t20nu7aaJDnbHlhzXbbuN&index=39
+
+
+_______________________________________________________
+The cache component permet de faire une cache des ressources
+pour l'installer : composer require symfony/cache
+
+
+
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+
+
+        //on récupère le cache
+        //$cache = new FilesystemAdapter();
+
+               //trick_key est la clé avec le quel le cache est identifié
+       //la fonction callback va retourner l'item dans lequel se trouve le data et la durée de la disponibilité du cache
+
+       $data =  $cache->get('trick_key', function(ItemInterface $item) use ($trickRepository){
+       $item->expiresAfter(35);
+       return $trickRepository->trickByCategory();
+
+       });
+
+
+_______________________________________________________
+
+ Event Listeners :
+ Event Listeners sont des evenements qu'on écoute lors de différentes phase de l'exécution de d'une application symfony
+ exemple : des evenements sont déclanchés lors d'une requette http
+
+
+ Subscribers : 
+  la principale différence entre Event Subscribers et les  Event Listeners est que les Event Subscribers connaissent déja en avance les evenements qu'ils écoutent
+
+
+
+   Event Listeners :
+   les events listeners par default de symfony sont beaucoups dont certains : 
+   kernel.request, kernel.controller, kernel.controller_arguments ect...
+
+
+
+
+
+   créer notre propre listeneur : 
+   - symfony console make:listener  
+
+
+
+
+
+  créer notre propre listeneur Subscriber
+   symfony console make:subscriber
+
+
+        1- donner le nom de class de notre event listener ex: MaClassEcouterEvenement
+        2- donner le event à écouter  ex : kernel.request (qui s'éxécute après chaque requete)
+
+
+resultat il va creer une class MaClassEcouterEvenement dans le quel il implemente : 
+- la fonction onKernelRequest qui contient l'action après l'evenements
+- la fonction getSubscribedEvents dans lequel il y'a le liste des evenements qu'on écoute
+
+
+
+
+_______________________________________________________Personnalisé les pages d'erreurs________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+<style>
+	/*
+	body {
+		background-color: gray;
+	}
+
+    */
+
+	.container {
+		/*background-color: gray;*/
+		display: flex;
+		flex-direction: column;
+		padding-top: 5vh;
+		height: 90vh;
+		margin: 0 10%;
+		font-family: sans serif;
+	}
+
+
+	.wrap_text_img {
+		display: flex;
+		flex-direction: row;
+		margin: auto;
+	}
+
+	.wrap_text h1 {
+		font-size: 20em;
+		margin-bottom: 4%;
+		margin-top: 1%;
+		margin-bottom: 0;
+		/** Text Gradient Example */
+
+		color: #33b7e2;
+		background-image: linear-gradient(45deg, #33b7e2 0%, #5e62b0 45%, #dc307c 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+
+	}
+
+	.wrap_text h2 {
+		font-size: 1.5em;
+		margin-bottom: 6%;
+		margin-top: 0;
+		color: #33b7e2;
+		background-image: linear-gradient(45deg, #33b7e2 0%, #5e62b0 45%, #dc307c 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+
+	}
+
+
+	.link_exception {
+		border: 1px solid black;
+		width: max-content;
+		padding: 2%;
+		border-radius: 10px;
+		text-decoration: none;
+	}
+
+</style>
+
+
+{% block body %}
+
+
+	<div class="container">
+
+		<div class="wrap_text_img">
+			<div class="wrap_text">
+
+				<h1 class="">
+					404</h1>
+
+				<h2>
+					Désolé, la page que vous cherchez est introuvable</h2>
+				<a href="" class="link_exception">
+					Retour à la page d'accueil</a>
+			</div>
+
+
+			<div><img src="{{ asset('images/babie_cry.png') }}" alt="baby cry!" width="400px"/></div>
+
+		</div>
+
+
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+____________________
+
+
+
+les erreurs à corriger : 
+
+
+
+
+
+
+
+
+
+
+An exception has been thrown during the rendering of a template ("Warning: session_id(): Session ID cannot be changed after headers have already been sent").
