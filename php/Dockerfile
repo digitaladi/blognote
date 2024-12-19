@@ -7,7 +7,8 @@ RUN apt update \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip 
-
+    #&& pecl install xdebug \
+    #&& docker-php-ext-enable xdebug
     
 RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
     && docker-php-ext-install  gd \

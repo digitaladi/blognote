@@ -569,21 +569,21 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
        });
 
 
-_______________________________________________________
+_______________________________________________________________
 
- Event Listeners :
- Event Listeners sont des evenements qu'on écoute lors de différentes phase de l'exécution de d'une application symfony
- exemple : des evenements sont déclanchés lors d'une requette http
-
-
- Subscribers : 
-  la principale différence entre Event Subscribers et les  Event Listeners est que les Event Subscribers connaissent déja en avance les evenements qu'ils écoutent
+Event Listeners :
+Event Listeners sont des evenements qu'on écoute lors de différentes phase de l'exécution de d'une application symfony
+exemple : des evenements sont déclanchés lors d'une requette http
 
 
+Subscribers : 
+la principale différence entre Event Subscribers et les  Event Listeners est que les Event Subscribers connaissent déja en avance les evenements qu'ils écoutent
 
-   Event Listeners :
-   les events listeners par default de symfony sont beaucoups dont certains : 
-   kernel.request, kernel.controller, kernel.controller_arguments ect...
+
+
+Event Listeners :
+les events listeners par default de symfony sont beaucoups dont certains : 
+kernel.request, kernel.controller, kernel.controller_arguments ect...
 
 
 
@@ -613,17 +613,36 @@ resultat il va creer une class MaClassEcouterEvenement dans le quel il implement
 
 _______________________________________________________Personnalisé les pages d'erreurs________________________________________
 
+1 - Installer composer require symfony/twig-pack si vous n'avez installer version webapp se symfony
 
+2 - créer ces fichiers dans l'arboresence comme ceci : 
+templates/
+└─ bundles/
+   └─ TwigBundle/
+      └─ Exception/
+         ├─ error404.html.twig
+         ├─ error403.html.twig
+         └─ error.html.twig      # All other HTML errors (including 500)
 
 
+3 - fichier de config par default : 
 
+# config/routes/framework.yaml
+when@dev:
+    _errors:
+        resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
+        prefix:   /_error
 
+4 - aller dans le fichier env. et mettre prod à la place de dev (en.local si on veut tester en locale le comportement en production)
 
+NB: pour tester la page on peut vérifié sur  : http://localhost/_error/{statusCode}
 
+N'oublier pas à chaque fois de vider le cache pour qu'il marche en mode prod
 
 
 
 
+__________________________________________________________________________________________________________________________________
 
 
 
@@ -644,106 +663,14 @@ _______________________________________________________Personnalisé les pages d
 
 
 
+SUPPRIMER UN PACKAGE SYMFONY AVEC COMPOSER
 
-{% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
 
+ composer remove TonPackage --update-with-dependencies --dev
 
-<style>
-	/*
-	body {
-		background-color: gray;
-	}
-
-    */
-
-	.container {
-		/*background-color: gray;*/
-		display: flex;
-		flex-direction: column;
-		padding-top: 5vh;
-		height: 90vh;
-		margin: 0 10%;
-		font-family: sans serif;
-	}
-
-
-	.wrap_text_img {
-		display: flex;
-		flex-direction: row;
-		margin: auto;
-	}
-
-	.wrap_text h1 {
-		font-size: 20em;
-		margin-bottom: 4%;
-		margin-top: 1%;
-		margin-bottom: 0;
-		/** Text Gradient Example */
-
-		color: #33b7e2;
-		background-image: linear-gradient(45deg, #33b7e2 0%, #5e62b0 45%, #dc307c 100%);
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-
-	}
-
-	.wrap_text h2 {
-		font-size: 1.5em;
-		margin-bottom: 6%;
-		margin-top: 0;
-		color: #33b7e2;
-		background-image: linear-gradient(45deg, #33b7e2 0%, #5e62b0 45%, #dc307c 100%);
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-
-	}
-
-
-	.link_exception {
-		border: 1px solid black;
-		width: max-content;
-		padding: 2%;
-		border-radius: 10px;
-		text-decoration: none;
-	}
-
-</style>
-
-
-{% block body %}
-
-
-	<div class="container">
-
-		<div class="wrap_text_img">
-			<div class="wrap_text">
-
-				<h1 class="">
-					404</h1>
-
-				<h2>
-					Désolé, la page que vous cherchez est introuvable</h2>
-				<a href="" class="link_exception">
-					Retour à la page d'accueil</a>
-			</div>
-
-
-			<div><img src="{{ asset('images/babie_cry.png') }}" alt="baby cry!" width="400px"/></div>
-
-		</div>
-
-
-	</div>
-{% endblock %}
-
-
-
-
-
+ puis supprimer le TonPackage dans composer.json
+ puis faire un composer update
 
 
 
@@ -759,7 +686,43 @@ ____________________
 
 
 
-les erreurs à corriger : 
+
+<?php
+
+/**
+ * Returns the importmap for this application.
+ *
+ * - "path" is a path inside the asset mapper system. Use the
+ *     "debug:asset-map" command to see the full list of paths.
+ *
+ * - "entrypoint" (JavaScript only) set to true for any module that will
+ *     be used as an "entrypoint" (and passed to the importmap() Twig function).
+ *
+ * The "importmap:require" command can be used to add new entries to this file.
+ */
+return [
+    'app' => [
+        'path' => './assets/app.js',
+        'entrypoint' => true,
+    ],
+    'register' => [
+        'path' => './assets/js/register.js',
+        'entrypoint' => true,
+    ],
+    'add-response-comment' => [
+        'path' => './assets/js/addResponseComment.js',
+        'entrypoint' => true,
+    ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@symfony/stimulus-bundle' => [
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '8.0.12',
+    ],
+];
 
 
 
@@ -770,4 +733,70 @@ les erreurs à corriger :
 
 
 
-An exception has been thrown during the rendering of a template ("Warning: session_id(): Session ID cannot be changed after headers have already been sent").
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("turbo:load", function() {
+    // Your JS code that should run after a full page load
+
+
+//console.log("je suis dans le fichier js addResponseComment.js")
+
+//selectionner tous les élements qui ont l'attribut data-reply
+document.querySelectorAll("[data-reply]").forEach(element => {
+    element.addEventListener("click", function(){
+        console.log(this)
+    })
+})
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
