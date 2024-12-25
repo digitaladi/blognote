@@ -800,3 +800,78 @@ document.querySelectorAll("[data-reply]").forEach(element => {
 
 
 
+<?php
+
+/**
+ * Returns the importmap for this application.
+ *
+ * - "path" is a path inside the asset mapper system. Use the
+ *     "debug:asset-map" command to see the full list of paths.
+ *
+ * - "entrypoint" (JavaScript only) set to true for any module that will
+ *     be used as an "entrypoint" (and passed to the importmap() Twig function).
+ *
+ * The "importmap:require" command can be used to add new entries to this file.
+ */
+return [
+    'app' => [
+        'path' => './assets/app.js',
+        'entrypoint' => true,
+    ],
+    'register' => [
+        'path' => './assets/js/register.js',
+        'entrypoint' => true,
+    ],
+    'add-response-comment' => [
+        'path' => './assets/js/addResponseComment.js',
+        'entrypoint' => true,
+    ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@symfony/stimulus-bundle' => [
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '8.0.12',
+    ],
+];
+
+
+
+
+
+
+
+
+
+
+
+import './bootstrap.js';
+/*
+ * Welcome to your app's main JavaScript file!
+ *
+ * This file will be included onto the page via the importmap() Twig function,
+ * which should already be in your base.html.twig.
+ */
+
+//on importe le css app.css
+import './styles/app.css';
+
+//on importe le css bootstrap.min.css
+import './styles/bootstrap.min.css';
+
+//on importe le js scripts.js
+import './js/scripts.js';
+
+
+//importe le fichier js addResponseComment.js
+import './js/addResponseComment.js';
+
+
+//récuperer le module
+import { maj } from './js/my_module.js';
+
+//console.log(maj("aladi"))
+
+//console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
